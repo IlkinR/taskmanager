@@ -3,7 +3,6 @@ from django.shortcuts import redirect, render
 from django.urls import reverse_lazy
 from django.contrib.auth.views import LoginView, redirect_to_login
 from django.views.generic.list import ListView
-from django.views.generic.detail import DetailView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView, FormView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.forms import UserCreationForm
@@ -102,12 +101,6 @@ class TasksListView(LoginRequiredMixin, ListView):
             context["tasks"] = high_prior_tasks | medium_prior_tasks | low_prior_tasks
 
         return context
-
-
-class TaskDetailView(LoginRequiredMixin, DetailView):
-    model = Task
-    template_name = "todo/task_detail.html"
-    context_object_name = "task"
 
 
 class TaskCreateView(LoginRequiredMixin, CreateView):
