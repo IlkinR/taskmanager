@@ -1,8 +1,9 @@
 # Task manager
 ## What does the application do ?
-I'm a person who is passionate about my own productivity. I want to manage my tasks and projects more effectively. I need a simple tool that supports me in controlling my task-flow. See on (Heroku)[https://rbtaskmanager.herokuapp.com]
+It can used to manage tasks and projects more effectively. Users can create/update/delete projects, add tasks to my project, update/delete tasks, prioritize tasks into a project, choose deadline for my task, mark a task as 'done'.
+See on [Heroku](https://rbtaskmanager.herokuapp.com)
 
-# How run it ?
+# How run it on local machine ?
 1. Install all requirements 
 ```shell 
 pip install -r requirements.txt
@@ -12,3 +13,7 @@ pip install -r requirements.txt
 ```shell 
 python manage.py runserver
 ```
+
+## Tech stack
+* Backend: Python, Django
+* Frontend: HTML, CSS, Twitter Bootstrap 5, jQuery
