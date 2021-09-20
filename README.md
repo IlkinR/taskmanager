@@ -1,6 +1,6 @@
 # Task manager
 ## What does the application do ?
-I'm a person who is passionate about my own productivity. I want to manage my tasks and projects more effectively. I need a simple tool that supports me in controlling my task-flow.
+I'm a person who is passionate about my own productivity. I want to manage my tasks and projects more effectively. I need a simple tool that supports me in controlling my task-flow. See on (Heroku)[https://rbtaskmanager.herokuapp.com]
 
 # How run it ?
 1. Install all requirements 
