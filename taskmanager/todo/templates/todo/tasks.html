@@ -1,0 +1,139 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" crossorigin="anonymous">
+
+    <title>Hello, world!</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Montserrat&family=Poppins:wght@300&display=swap');
+
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .navbar-brand {
+            font-size: 22px;
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        .sort-tasks {
+            margin-top: 3em;
+            margin-bottom: 1em;
+        }
+    </style>
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">TaskMe</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent"
+                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="#">Projects</a>
+                    </li>
+                </ul>
+                <ul class="navbar-nav">
+                    {% if request.user.is_authenticated %}
+                    <li class="nav-item">
+                        <a class="nav-link active" href="#">Hello, {{ request.user }} | </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'logout' %}">Logout</a>
+                    </li>
+                    {% else %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'login' %}">Login</a>
+                    </li>
+                    {% endif %}
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <main class="mt-5">
+        <div class="container">
+            <h1 class="text-center fw-bold">Tasks</h1>
+
+            {% if not tasks %}
+
+            <p>No tasks</p>
+            <a href="{% url 'task_create' project.id %}">
+                <button type="button" class="btn btn-success">Add Task</button>
+            </a>
+
+            {% else %}
+            <div class="w-75 mx-auto mb-4">
+                <form class="row align-items-center sort-tasks" method="get">
+                    <div class="col">
+                        <select class="form-select" name="sort_by">
+                            <option disabled selected>Sort tasks by</option>
+                            <option value="completion">Completion</option>
+                            <option value="priority">Priority</option>
+                        </select>
+                    </div>
+                    <div class="col">
+                        <input type="submit" class="btn btn-primary" value="Sort">
+                    </div>
+                </form>
+
+                <a href="{% url 'task_create' project.id %}">
+                    <button type="button" class="btn btn-success">Add Task</button>
+                </a>
+            </div>
+
+            <div class="mt-4">
+                {% for task in tasks %}
+
+                <div class="card w-75 mx-auto shadow p-3 mb-5 bg-body rounded border-0">
+                    <div class="card-body">
+                        <h3 class="card-title fw-bold text-center">{{ task.title|title }}</h4>
+                            <div class="mt-4 mb-4 d-flex justify-content-around">
+                                <div class="bg-warning p-2 px-5 rounded">{{ task.priority_level|upper }}</div>
+                                <div class="bg-warning p-2 px-5 rounded">
+                                    {% if not task.is_done %}
+                                    Completed
+                                    {% else %}
+                                    Not completed
+                                    {% endif %}
+                                </div>
+                                <div class="bg-warning p-2 px-5 rounded">{{ task.deadline|date:"M d, Y" }}</div>
+                            </div>
+                            <hr>
+                            <p class="card-text">{{ task.content }}</p>
+                            <div class="mt-4">
+                                <a href="{% url 'task_update' task.id %}" class="card-link">
+                                    <button type="button" class="btn btn-success">Update</button>
+                                </a>
+                                <a href="{% url 'task_delete' task.id %}" class="card-link">
+                                    <button type="button" class="btn btn-danger">Delete</button>
+                                </a>
+                            </div>
+                    </div>
+                </div>
+                {% endfor %}
+                {% endif %}
+            </div>
+        </div>
+    </main>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-/bQdsTh/da6pkI1MST/rWKFNjaCP5gBSY4sEBT38Q/9RBh9AH40zEOg7Hlq2THRZ"
+        crossorigin="anonymous"></script>
+</body>
+
+</html>
