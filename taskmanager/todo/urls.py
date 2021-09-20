@@ -7,10 +7,11 @@ urlpatterns = [
     path("", views.UserLoginView.as_view(), name="login"),
     path("register/", views.UserRegistrationView.as_view(), name="register"),
     path("logout/", LogoutView.as_view(next_page="login"), name="logout"),
+    
     # Project
     path("projects/", views.ProjectsListView.as_view(), name="projects"),
     path("project_new/", views.ProjectCreateView.as_view(), name="project_create"),
-    path("project_update/<int:pk>/",views.ProjectUpdateView.as_view(), name="project_update"),
+    path("project_update/<int:pk>/", views.ProjectUpdateView.as_view(), name="project_update"),
     path("project_delete/<int:pk>/", views.ProjectDeleteView.as_view(), name="project_delete"),
     
     # Tasks
